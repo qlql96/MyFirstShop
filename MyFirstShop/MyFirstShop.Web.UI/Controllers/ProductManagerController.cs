@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MyFirstShop.Core.Models;
+using MyFirstShop.Core.ViewModels;
 using MyFirstShop.DataAccess.InMemory;
 
 namespace MyFirstShop.Web.UI.Controllers
@@ -12,9 +13,12 @@ namespace MyFirstShop.Web.UI.Controllers
     {
 
         ProductRespository context;
+        ProductCategoryRespository productCategories;
         public ProductManagerController()
         {
             context = new ProductRespository();
+            productCategories = new ProductCategoryRespository();
+
         }
 
         // GET: ProductManager
@@ -27,8 +31,11 @@ namespace MyFirstShop.Web.UI.Controllers
 
         public ActionResult Create()
         {
-            Product product = new Product();
-            return View(product);
+            ProductManagerViewModel viewModel = new ProductManagerViewModel();
+
+            viewModel.Product = new Product();
+            viewModel.ProductCategories = productCategories.Collection();
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -55,7 +62,10 @@ namespace MyFirstShop.Web.UI.Controllers
             }
             else
             {
-                return View(product);
+                ProductManagerViewModel viewModel = new ProductManagerViewModel();
+                viewModel.Product = product;
+                viewModel.ProductCategories = productCategories.Collection();
+                return View(viewModel);
             }
 
         }
