@@ -12,12 +12,12 @@ namespace MyFirstShop.Web.UI.Controllers
     public class ProductManagerController : Controller
     {
 
-        ProductRespository context;
-        ProductCategoryRespository productCategories;
+        InMemoryRespository<Product> context;
+        InMemoryRespository<ProductCategory> productCategories;
         public ProductManagerController()
         {
-            context = new ProductRespository();
-            productCategories = new ProductCategoryRespository();
+            context = new InMemoryRespository<Product> ();
+            productCategories = new InMemoryRespository<ProductCategory>();
 
         }
 
