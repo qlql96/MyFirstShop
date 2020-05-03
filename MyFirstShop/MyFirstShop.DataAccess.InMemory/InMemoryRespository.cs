@@ -1,4 +1,5 @@
-﻿using MyFirstShop.Core.Models;
+﻿using MyFirstShop.Core.Contracts;
+using MyFirstShop.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,9 @@ using System.Threading.Tasks;
 namespace MyFirstShop.DataAccess.InMemory
 {
 
-    public class InMemoryRespository<T> where T: BaseEntity
+    public class InMemoryRespository<T> : IRespository<T> where T : BaseEntity
     {
-        ObjectCache cache =  MemoryCache.Default;
+        ObjectCache cache = MemoryCache.Default;
         List<T> items;
         string className;
 
@@ -19,7 +20,7 @@ namespace MyFirstShop.DataAccess.InMemory
         {
             className = typeof(T).Name;
             items = cache[className] as List<T>;
-            if(items == null)
+            if (items == null)
             {
                 items = new List<T>();
             }
@@ -29,8 +30,6 @@ namespace MyFirstShop.DataAccess.InMemory
         {
             cache[className] = items;
         }
-
-
         public void Insert(T t)
         {
             items.Add(t);
@@ -40,13 +39,13 @@ namespace MyFirstShop.DataAccess.InMemory
         {
             T tToUpdate = items.Find(i => i.Id == t.Id);
 
-            if(tToUpdate != null)
+            if (tToUpdate != null)
             {
                 tToUpdate = t;
             }
             else
             {
-                throw new Exception(className + " Not found"); 
+                throw new Exception(className + " Not found");
             }
         }
 
@@ -71,7 +70,7 @@ namespace MyFirstShop.DataAccess.InMemory
         }
         public void Delete(string Id)
         {
-            T tToDelete = items.Find(i => i.Id ==Id);
+            T tToDelete = items.Find(i => i.Id == Id);
 
             if (tToDelete != null)
             {

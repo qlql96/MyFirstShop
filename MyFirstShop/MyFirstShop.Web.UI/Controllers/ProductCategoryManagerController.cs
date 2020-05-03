@@ -1,4 +1,5 @@
-﻿using MyFirstShop.Core.Models;
+﻿using MyFirstShop.Core.Contracts;
+using MyFirstShop.Core.Models;
 using MyFirstShop.DataAccess.InMemory;
 using System;
 using System.Collections.Generic;
@@ -11,10 +12,10 @@ namespace MyFirstShop.Web.UI.Controllers
     public class ProductCategoryManagerController : Controller
     {
 
-        InMemoryRespository<ProductCategory> context;
-        public ProductCategoryManagerController()
+        IRespository<ProductCategory> context;
+        public ProductCategoryManagerController(IRespository<ProductCategory> context)
         {
-            context = new InMemoryRespository<ProductCategory>();
+            this.context = context;
         }
 
         // GET: ProductManager

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MyFirstShop.Core.Contracts;
 using MyFirstShop.Core.Models;
 using MyFirstShop.Core.ViewModels;
 using MyFirstShop.DataAccess.InMemory;
@@ -12,12 +13,12 @@ namespace MyFirstShop.Web.UI.Controllers
     public class ProductManagerController : Controller
     {
 
-        InMemoryRespository<Product> context;
-        InMemoryRespository<ProductCategory> productCategories;
-        public ProductManagerController()
+        IRespository<Product> context;
+        IRespository<ProductCategory> productCategories;
+        public ProductManagerController(IRespository<Product> productContext, IRespository<ProductCategory> productCategoryContext)
         {
-            context = new InMemoryRespository<Product> ();
-            productCategories = new InMemoryRespository<ProductCategory>();
+            context = productContext;
+            productCategories = productCategoryContext;
 
         }
 
