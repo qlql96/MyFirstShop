@@ -2,6 +2,7 @@ using MyFirstShop.Core.Contracts;
 using MyFirstShop.Core.Models;
 using MyFirstShop.DataAccess.InMemory;
 using MyFirstShop.DataAccess.SQL;
+using MyFirstShop.Services;
 using System;
 
 using Unity;
@@ -48,6 +49,10 @@ namespace MyFirstShop.Web.UI
             // container.RegisterType<IProductRepository, ProductRepository>();
             container.RegisterType<IRespository<Product>, SQLRespository<Product>>();
             container.RegisterType<IRespository<ProductCategory>, SQLRespository<ProductCategory>>();
+            container.RegisterType<IRespository<Basket>, SQLRespository<Basket>>();
+            container.RegisterType<IRespository<BasketItem>, SQLRespository<BasketItem>>();
+            container.RegisterType<IBasketService, BasketService>();
+
         }
     }
 }

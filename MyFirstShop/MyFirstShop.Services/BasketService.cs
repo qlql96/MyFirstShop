@@ -75,6 +75,8 @@ namespace MyFirstShop.Services
                     Quantity = 1
 
                 };
+
+                basket.BasketItems.Add(item);
             }
             else
             {
@@ -105,7 +107,7 @@ namespace MyFirstShop.Services
                               join p in productContext.Collection() on b.ProductId equals p.Id
                               select new BasketItemViewModel()
                               {
-                                  id = b.Id,
+                                  Id = b.Id,
                                   Quantity = b.Quantity,
                                   ProductName = p.Name,
                                   Image = p.Image,
@@ -128,6 +130,7 @@ namespace MyFirstShop.Services
             {
                 int? basketCount = (from item in basket.BasketItems
                                     select item.Quantity).Sum();
+
                 decimal? basketTotal = (from item in basket.BasketItems
                                         join p in productContext.Collection() on item.ProductId equals p.Id
                                         select item.Quantity * p.Price).Sum();
