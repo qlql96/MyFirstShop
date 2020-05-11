@@ -14,7 +14,7 @@ namespace MyFirstShop.Services
     {
         IRespository<Product> productContext;
         IRespository<Basket> basketContext;
-        public const string BasketSessionName = "eCommerce";
+        public const string BasketSessionName = "eCommerceBasket";
 
         public BasketService(IRespository<Product> ProductContext, IRespository<Basket> BasketContext)
         {
@@ -75,6 +75,7 @@ namespace MyFirstShop.Services
                     Quantity = 1
 
                 };
+                basket.BasketItems.Add(item);
             }
             else
             {
